@@ -13,10 +13,30 @@ const ErrorMessage = styled(Box)`
   font-size: ${th.size(2)}px;
 `;
 
-export const Field = ({ label, error, ...props }) => (
-  <Box>
+export const Field = ({
+  textContentType,
+  label,
+  error,
+  placeholder,
+  placeholderTextColor,
+  value,
+  disabled,
+  onChangeText,
+  onBlur,
+  ...props
+}) => (
+  <Box {...props}>
     <Label>{label}</Label>
-    <Input {...props} hasError={!!error} />
+    <Input
+      textContextType={textContentType}
+      placeholderTextColor={placeholderTextColor}
+      value={value}
+      placeholder={placeholder}
+      disabled={disabled}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
+      hasError={!!error}
+    />
     {error && <ErrorMessage>{error}</ErrorMessage>}
   </Box>
 );

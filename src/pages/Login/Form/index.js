@@ -1,8 +1,7 @@
 import * as React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-
-import { View, Text } from "react-native";
+import { Field, Box, Button, Text } from "~/components/";
 
 const validationSchema = yup.object().shape({
   userName: yup
@@ -12,7 +11,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Digite uma senha"),
 });
 
-export const Form = ({ onSubmit }) => {
+export const Form = ({ onSubmit, onSignupPress }) => {
   const {
     values,
     errors,
@@ -32,8 +31,53 @@ export const Form = ({ onSubmit }) => {
   });
 
   return (
-    <View>
-      <Text>adasdasd</Text>
-    </View>
+    <>
+      <Field
+        type="text"
+        name="username"
+        label="E-mail"
+        placeholder="Digite o seu e-mail"
+        value={values.username}
+        error={touched.username && errors.username}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        disabled={isSubmitting}
+        mb={3}
+      />
+      <Field
+        type="password"
+        name="password"
+        label="Senha"
+        placeholder="Digite a sua senha"
+        value={values.password}
+        error={touched.password && errors.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        disabled={isSubmitting}
+        mb={3}
+      />
+      <Box center>
+        <Button
+          label="Entrar"
+          loading={isSubmitting}
+          disabled={!isValid}
+          onPress={handleSubmit}
+          m={1}
+        />
+        <Box m={1} fontSize={1}>
+          <Text>
+            Não possui cadastro?{" "}
+            <Text
+              to="/signup"
+              color="gray"
+              fontWeight="bold"
+              onPress={onSignupPress}
+            >
+              Cadastre-se!
+            </Text>
+          </Text>
+        </Box>
+      </Box>
+    </>
   );
 };
