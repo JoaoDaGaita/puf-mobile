@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { StatusBar } from "react-native";
-import { Box, SafeArea } from "~/components/";
+import { Box, SafeArea, Logo, Text } from "~/components/";
 import { Form } from "./Form";
 
 const Screen = ({
@@ -19,7 +19,15 @@ const Screen = ({
 );
 
 export const Login = () => (
-  <Screen p={3}>
-    <Form />
+  <Screen p={3} justifyContent="center">
+    <Logo flex={1} />
+    <Box flex={1}>
+      <Text fontSize={6} textAlign="center">
+        Login
+      </Text>
+      <Form />
+    </Box>
+
+    <Box flex={1} />
   </Screen>
 );
