@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { Field, Box, Button, Text } from "~/components/";
 
 const validationSchema = yup.object().shape({
-  userName: yup
+  username: yup
     .string()
     .required("Informe o seu e-mmail")
     .email("E-mail inválido"),
@@ -34,25 +34,23 @@ export const Form = ({ onSubmit, onSignupPress }) => {
     <>
       <Field
         type="text"
-        name="username"
         label="E-mail"
         placeholder="Digite o seu e-mail"
         value={values.username}
         error={touched.username && errors.username}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChangeText={handleChange("username")}
+        onBlur={handleBlur("username")}
         disabled={isSubmitting}
         mb={3}
       />
       <Field
         type="password"
-        name="password"
         label="Senha"
         placeholder="Digite a sua senha"
         value={values.password}
         error={touched.password && errors.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChangeText={handleChange("password")}
+        onBlur={handleBlur("password")}
         disabled={isSubmitting}
         mb={3}
       />
