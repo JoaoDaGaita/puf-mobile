@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { StatusBar } from "react-native";
+import { useAuth } from "~/components/modules/Auth";
 import { Box, SafeArea, Logo, Text } from "~/components/";
 import { Form } from "./Form";
 
@@ -18,16 +19,27 @@ const Screen = ({
   </SafeArea>
 );
 
-export const Login = () => (
-  <Screen p={3} justifyContent="center">
-    <Logo flex={1} />
-    <Box flex={1}>
-      <Text fontSize={6} textAlign="center">
-        Login
-      </Text>
-      <Form />
-    </Box>
+export const Login = () => {
+  const [, { login: setAuth }] = useAuth();
 
-    <Box flex={1} />
-  </Screen>
-);
+  const onSubmit = (values) => {
+    console.log(values);
+    setAuth({
+      token: 123,
+      user: values,
+    });
+  };
+  return (
+    <Screen p={3} justifyContent="center">
+      <Logo flex={1} />
+      <Box flex={1}>
+        <Text fontSize={6} textAlign="center">
+          Login
+        </Text>
+        <Form onSubmit={onSubmit} />
+      </Box>
+
+      <Box flex={1} />
+    </Screen>
+  );
+};

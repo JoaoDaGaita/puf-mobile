@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { Path, Polygon, Circle } from "react-native-svg";
+import Svg, { Path, G, Polygon, Circle } from "react-native-svg";
 
 import { Box } from "~/components/uikit/Box";
 
@@ -13,7 +13,7 @@ export const Logo = (props) => (
       viewBox="0 0 225.000000 225.000000"
       preserveAspectRatio="xMidYMid meet"
     >
-      <g
+      <G
         transform="translate(0.000000,225.000000) scale(0.100000,-0.100000)"
         fill="#000000"
         stroke="none"
@@ -41,7 +41,7 @@ m-730 -533 c0 -167 -7 -198 -52 -229 -12 -9 -42 -16 -66 -16 -37 0 -50 6 -78
 -106 -16 -141 24 -25 27 -28 38 -28 98 l0 67 133 122 c127 117 165 149 119
 100z"
         />
-      </g>
+      </G>
     </Svg>
   </Box>
 );

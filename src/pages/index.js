@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Login } from "./Login";
 import { Dashboard } from "./Dashboard";
+import { useAuth } from "~/components/modules/Auth";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +30,7 @@ const LoggedInStack = () => (
 );
 
 export const App = () => {
-  const [auth] = [{ user: false }];
+  const [auth] = useAuth();
   return (
     <NavigationContainer>
       {auth?.user ? <LoggedInStack /> : <AuthStack />}

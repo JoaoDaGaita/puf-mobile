@@ -6,7 +6,7 @@ import { Field, Box, Button, Text } from "~/components/";
 const validationSchema = yup.object().shape({
   username: yup
     .string()
-    .required("Informe o seu e-mmail")
+    .required("Informe o seu e-mail")
     .email("E-mail inválido"),
   password: yup.string().required("Digite uma senha"),
 });
