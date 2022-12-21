@@ -30,7 +30,7 @@ const LoggedInStack = () => (
 );
 
 export const App = () => {
-  const [auth] = useAuth();
+  const [{ auth }] = useAuth();
   return (
     <NavigationContainer>
       {auth?.user ? <LoggedInStack /> : <AuthStack />}

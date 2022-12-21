@@ -4,27 +4,34 @@ import { createContext, useState, useEffect, useContext } from "react";
 
 const AuthContext = createContext([{}, () => ({})]);
 
+const STORAGE_KEY = "auth01";
+
 export const useAuth = () => {
   const [state, setState] = useContext(AuthContext);
 
-  const logout = () => setState(false);
+  const logout = () =>
+    setState((prevState) => ({
+      ...prevState,
+      auth: false,
+    }));
 
-  return [state, { login: setState, logout }];
+  const login = (auth) =>
+    setState((prevState) => ({
+      ...prevState,
+      auth,
+    }));
+
+  return [state, { login, logout }];
 };
+
 export const AuthProvider = ({ children }) => {
   const [state, setState] = useState({
     rehydrated: false,
   });
 
-  const setStateContent = (data) =>
-    setState((prev) => ({
-      ...prev,
-      ...data,
-    }));
-
   const setItem = async (value) => {
     try {
-      await AsyncStorage.setItem("auth2", value && JSON.stringify(value));
+      await AsyncStorage.setItem(STORAGE_KEY, value && JSON.stringify(value));
     } catch (error) {
       console.log(error);
     }
@@ -32,12 +39,13 @@ export const AuthProvider = ({ children }) => {
 
   const getItem = async () => {
     try {
-      const data = await AsyncStorage.getItem("auth2");
-      setState((prev) => ({
-        ...prev,
-        ...(data !== null && JSON.parse(data)),
-        rehydrated: true,
-      }));
+      const data = await AsyncStorage.getItem(STORAGE_KEY);
+
+      if (data) {
+        setState(JSON.parse(data));
+      } else {
+        state.rehydrated = true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={[state, setStateContent]}>
+    <AuthContext.Provider value={[state, setState]}>
       {children}
     </AuthContext.Provider>
   );
